@@ -45,7 +45,7 @@ public class Register extends HttpServlet {
 		if(username.equals("") || username.isBlank()) {
 			Message msg=new Message("Username cannot be blank.", "error", "alert-danger");
 			httpsession.setAttribute("status", msg);
-			dispatcher = request.getRequestDispatcher("Login");
+			dispatcher = request.getRequestDispatcher("Register");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -53,7 +53,7 @@ public class Register extends HttpServlet {
 		if(email.equals("") || email.isBlank()) {
 			Message msg=new Message("Email cannot be blank.", "error", "alert-danger");
 			httpsession.setAttribute("status", msg);
-			dispatcher = request.getRequestDispatcher("Login");
+			dispatcher = request.getRequestDispatcher("Register");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -61,7 +61,7 @@ public class Register extends HttpServlet {
 		if(password.equals("") || password.isBlank()) {
 			Message msg=new Message("Password cannot be blank.", "error", "alert-danger");
 			httpsession.setAttribute("status", msg);
-			dispatcher = request.getRequestDispatcher("Login");
+			dispatcher = request.getRequestDispatcher("Register");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -69,7 +69,7 @@ public class Register extends HttpServlet {
 		if(!rpt_pwd.equals(password)) {
 			Message msg=new Message("Passwords do not matches.", "error", "alert-danger");
 			httpsession.setAttribute("status", msg);
-			dispatcher = request.getRequestDispatcher("Login");
+			dispatcher = request.getRequestDispatcher("Register");
 			dispatcher.forward(request, response);
 			return;
 		}
