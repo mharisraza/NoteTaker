@@ -10,7 +10,7 @@
             "file": "NoteTaker.war",
             "context": "/",
             "checkMe": "/index.jsp"
-         },
+         }
       ]
    }
 }
