@@ -8,9 +8,9 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://bqwyahjah4j3ux8q8gde-mysql.services.clever-cloud.com:3306/bqwyahjah4j3ux8q8gde</property>
-		<property name="connection.username">uctsgz2cdz1zrjpr</property>
-		<property name="connection.password">GL66BF0vdyRnWBlkwX5B</property>
+		<property name="connection.url">jdbc:mysql://your_host:3306/your_database_name</property>
+		<property name="connection.username">user_name</property>
+		<property name="connection.password">password</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 		<property name="hbm2ddl.auto">update</property>
 		<property name="show_sql">true</property>
