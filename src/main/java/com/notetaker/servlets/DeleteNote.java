@@ -14,6 +14,7 @@ import org.hibernate.Transaction;
 
 import com.notetaker.entitites.Message;
 import com.notetaker.entitites.Note;
+import com.notetaker.entities.Users;
 import com.notetaker.helper.FactoryProvider;
 
 /**
@@ -37,14 +38,26 @@ public class DeleteNote extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			RequestDispatcher dispatcher = null;
-			HttpSession httpsession=request.getSession();
+			HttpSession httpSession=request.getSession();
 			
-			int noteId=Integer.parseInt(request.getParameter("note_id").trim());
-			
+			Integer noteId=Integer.parseInt(request.getParameter("note_id").trim());
+
 			Session s= FactoryProvider.getFactory().openSession();
 			Transaction tx=s.beginTransaction();
+
+			if(noteId == null) {
+				dispatcher = request.getRequestDispatcher("/showNotes")
+				dispatcher.forward(request, response);
+			}
+
+			Users user = (Users) httpSession.getAttribute("user");
 			
 			Note note=(Note)s.get(Note.class, noteId);
+
+			if(note.getUser_id() != user.getId()) {
+				dispatcher = request.getRequestDispatcher("/showNotes")
+				dispatcher.forward(request, response);
+			}
 			
 			s.delete(note);
 			
@@ -52,14 +65,14 @@ public class DeleteNote extends HttpServlet {
 			tx.commit();
 			if(note!=null) {
 				Message msg=new Message("Note Deleted Successfully!", "success", "alert-success");
-				httpsession.setAttribute("status", msg);
+				httpSession.setAttribute("status", msg);
 				dispatcher = request.getRequestDispatcher("showNotes");
 				dispatcher.forward(request, response);
 
 			}
 			else {
 				Message msg=new Message("Note Cannot Be Delete", "error", "alert-danger");
-				httpsession.setAttribute("status", msg);
+				httpSession.setAttribute("status", msg);
 				dispatcher = request.getRequestDispatcher("showNotes");
 				dispatcher.forward(request, response);
 

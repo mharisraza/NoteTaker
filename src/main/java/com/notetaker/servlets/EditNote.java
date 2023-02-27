@@ -15,15 +15,13 @@ import org.hibernate.Transaction;
 
 import com.notetaker.entitites.Message;
 import com.notetaker.entitites.Note;
+import com.notetaker.entities.Users;
 import com.notetaker.helper.FactoryProvider;
 
 public class EditNote extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
- 
     public EditNote() {
-        super();
-        
     }
 
 	
@@ -37,10 +35,24 @@ public class EditNote extends HttpServlet {
 			
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
-			int noteId=Integer.parseInt(request.getParameter("noteId").trim());
+			Integer noteId=Integer.parseInt(request.getParameter("noteId").trim());
+
+			if(noteId == null) {
+				dispatcher = request.getRequestDispatcher("/showNotes");
+				dispatcher.forward(request, response);
+			}
+
+			Users user = (Users) httpsession.getAttribute("user");
+
+			Note note=s.get(Note.class, noteId);
+
+
+			if(note.getUser_id() != user.getId()) {
+				dispatcher = request.getRequestDispatcher("/showNotes");
+				dispatcher.forward(request, response);
+			}
 			
 			Transaction tx=s.beginTransaction();
-			Note note=s.get(Note.class, noteId);
 			
 			note.setTitle(title);
 			note.setContent(content);
